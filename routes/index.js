@@ -1,9 +1,16 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', function(req, res) {
+  res.json({
+    service: 'chat-auth-service',
+    status: 'ok',
+    endpoints: {
+      register: 'POST /auth/register',
+      login: 'POST /auth/login',
+      me: 'GET /auth/me',
+    },
+  });
 });
 
 module.exports = router;
