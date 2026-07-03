@@ -4,6 +4,10 @@ services:
       dockerfile: ./dockerfile/main.dockerfile
     container_name: chat-app-auth-middleware
     restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - chat-app
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=chat-app"
@@ -12,3 +16,8 @@ services:
       - "traefik.http.routers.chat-auth.entrypoints=web"
       - "traefik.http.routers.chat-auth.service=chat-auth-service"
       - "traefik.http.services.chat-auth-service.loadbalancer.server.port=3000"
+
+networks:
+  chat-app:
+    external: true
+    name: chat-app
